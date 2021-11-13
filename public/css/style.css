@@ -1,0 +1,24 @@
+
+.heading{
+    color: blueviolet;
+}
+.container-fluid{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.main__card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.section__1{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(204, 204, 204);
+}
+.card-body{
+    color: white;
+}
