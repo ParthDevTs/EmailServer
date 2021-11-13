@@ -51,10 +51,8 @@ app.post('/api/sendEmail',(req,res)=>{
 
     transporter.sendMail(mailOptions, (err,success)=>{
         if(err){
-            console.log(err);
             res.send(error)
         }else{
-            console.log('email Sent', success);
             res.send(success)
         }
     })
