@@ -38,9 +38,9 @@ app.post('/api/sendEmail',(req,res)=>{
         text: req.body.message,
         html: `
 
-        <h3 style="color: rgb(60, 176, 253); font-family: 'Times New Roman', Times, serif;">${req.body.name} Says: </h3> 
-        <br>
+        <p style="color: rgb(60, 176, 253); font-family: 'Times New Roman', Times, serif;">${req.body.name} Says: </p> 
         <p style="font-size: 15px; color: black; font-family: 'Times New Roman', Times, serif;">${req.body.message}</p>
+        <br>
         <p style="color: blue;">To Reply, Click: <a target="_blank" href="mailto:${req.body.email}">${req.body.name}</a> </p>
         `
     }
