@@ -36,7 +36,7 @@ app.post('/api/sendEmail',(req,res)=>{
         from: `"${req.body.name}"  <${req.body.email}>`,
         to: 'parthkathuriaemails@gmail.com',
         replyTo: req.body.email ,
-        subject: `"${req.body.name}"<${req.body.email}> sent you a message`,
+        subject: `${req.body.subject}`,
         text: req.body.message,
         html: `
         <p>You have a new contact request!</p>
@@ -47,11 +47,8 @@ app.post('/api/sendEmail',(req,res)=>{
             <li>Email Id: ${req.body.email}</li>
             <li>Subject: ${req.body.subject}</li>
         </ul>
-        
         <h3>Message: </h3>
         <p>${req.body.message}</p>
-        <br>
-        <p style="color: blue;">To Reply, Click: <a target="_blank" href="mailto:${req.body.email}">${req.body.name}</a> </p>
         `
     }
 
