@@ -81,7 +81,7 @@ app.post('/api/sendEmail',(req,res)=>{
                 const emailSaved = await email.save(); 
             }
             catch(err){
-                console.log(error)
+                console.log({"error": "Email Already Exists"})
             }
         }
     })
