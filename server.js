@@ -3,7 +3,7 @@ const app = express();
 const nodeMailer = require("nodemailer");
 const mongoose = require("mongoose");
 require('dotenv/config');
-const Email = require('public/email')
+const Email = require('../EmailServer/models/email');
 
 mongoose.connect(`${process.env.DB_config}` , { useNewUrlParser: true}, ()=>{
     console.log("connected To DB")
