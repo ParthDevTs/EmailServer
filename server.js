@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const nodeMailer = require("nodemailer");
+const cors = require("cors");
+require('dotenv/config');
 
 const PORT = process.env.PORT||5000;
 
@@ -11,11 +13,9 @@ app.use(express.static('public'));
 
 app.use(express.json());
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
+app.use(cors);
+
+
 
 
 app.get('/',(req,res)=>{
@@ -26,27 +26,35 @@ app.post('/api/sendEmail',(req,res)=>{
     const transporter = nodeMailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'parthkathurianode@gmail.com',
-            pass: 'parthkathuria'
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_PASS
         }
     })
 
     const mailOptions = {
-        from: req.body.email,
+        sender: `"${req.body.name}"  <${req.body.email}>`,
         to: 'parthkathuriaemails@gmail.com',
         subject: `Message from ${req.body.email}:  ${req.body.subject}`,
         text: req.body.message,
         html: `
-
-        <p style="color: rgb(60, 176, 253); font-family: 'Times New Roman', Times, serif;">${req.body.name} Says: </p> 
-        <p style="font-size: 15px; color: black; font-family: 'Times New Roman', Times, serif;">${req.body.message}</p>
+        <p>You have a new contact request!</p>
+        <br>
+        <h3>Contact Details: </h3>
+        <ul>
+            <li>Name: ${req.body.name}</li>
+            <li>Email Id: ${req.body.email}</li>
+            <li>Subject: ${req.body.subject}</li>
+        </ul>
+        
+        <h3>Message: </h3>
+        <p>${req.body.message}</p>
         <br>
         <p style="color: blue;">To Reply, Click: <a target="_blank" href="mailto:${req.body.email}">${req.body.name}</a> </p>
         `
     }
 
-    let success ={
-        message : "success"
+    let successs ={
+        message : "Email sent successfully"
     }
     let error ={
         message : "error"
@@ -56,7 +64,7 @@ app.post('/api/sendEmail',(req,res)=>{
         if(err){
             res.send(error)
         }else{
-            res.send(success)
+            res.send(successs)
         }
     })
 })
