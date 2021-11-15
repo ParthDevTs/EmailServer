@@ -1,8 +1,15 @@
 const express = require('express');
 const app = express();
 const nodeMailer = require("nodemailer");
-const cors = require("cors");
+const mongoose = require("mongoose");
 require('dotenv/config');
+const Email = require('../EmailServer/models/email');
+
+mongoose.connect(`${process.env.DB_config}` , { useNewUrlParser: true}, ()=>{
+    console.log("connected To DB")
+})
+
+
 
 const PORT = process.env.PORT||5000;
 
@@ -52,6 +59,11 @@ app.post('/api/sendEmail',(req,res)=>{
         `
     }
 
+    const email = new Email({
+        name: req.body.name,
+        email: req.body.email
+    })
+
     let successs ={
         message : "Email sent successfully"
     }
@@ -59,13 +71,23 @@ app.post('/api/sendEmail',(req,res)=>{
         message : "error"
     }
 
-    transporter.sendMail(mailOptions, (err,success)=>{
+
+    transporter.sendMail(mailOptions, async (err,success)=>{
         if(err){
             res.send(error)
         }else{
             res.send(successs)
+            try{
+                const savedUser = await user.save();
+                console.log(savedUser)
+            }
+            catch(err){
+                console.log(err);
+            }
         }
     })
+
+
 })
 
 app.listen(PORT, ()=>{
