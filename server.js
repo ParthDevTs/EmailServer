@@ -35,6 +35,7 @@ app.post('/api/sendEmail',(req,res)=>{
     const mailOptions = {
         from: `"${req.body.name}"  <${req.body.email}>`,
         to: 'parthkathuriaemails@gmail.com',
+        replyTo: req.body.email ,
         subject: `"${req.body.name}"<${req.body.email}> sent you a message`,
         text: req.body.message,
         html: `
