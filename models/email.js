@@ -11,7 +11,8 @@ const emailSchema = new mongoose.Schema({
         type: String,
         required: true,
         min:4,
-        max: 1024
+        max: 1024,
+        unique: true
     },
     date: {
         type: Date,
