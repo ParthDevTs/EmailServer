@@ -78,11 +78,10 @@ app.post('/api/sendEmail',(req,res)=>{
         }else{
             res.send(successs)
             try{
-                const savedUser = await user.save();
-                console.log(savedUser)
+                const emailSaved = await email.save(); 
             }
             catch(err){
-                console.log(err);
+                
             }
         }
     })
