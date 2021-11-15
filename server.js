@@ -33,9 +33,9 @@ app.post('/api/sendEmail',(req,res)=>{
     })
 
     const mailOptions = {
-        sender: `"${req.body.name}"  <${req.body.email}>`,
+        from: `"${req.body.name}"  <${req.body.email}>`,
         to: 'parthkathuriaemails@gmail.com',
-        subject: `Message from ${req.body.email}:  ${req.body.subject}`,
+        subject: `"${req.body.name}"<${req.body.email}> sent you a message`,
         text: req.body.message,
         html: `
         <p>You have a new contact request!</p>
