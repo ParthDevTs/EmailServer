@@ -1,3 +1,4 @@
+
 const express = require('express');
 const router = express.Router();
 
@@ -7,7 +8,7 @@ const TotalCalls = require('../models/totalCalls');
 const nodeMailer = require("nodemailer");
 
 
-
+// Node Mailer API
 router.post('/sendEmail',(req,res)=>{
     const transporter = nodeMailer.createTransport({
         service: 'gmail',
@@ -24,15 +25,6 @@ router.post('/sendEmail',(req,res)=>{
         subject: `${req.body.subject}`,
         text: req.body.message,
         html: `
-        <p>You have a new contact request!</p>
-        <br>
-        <h3>Contact Details: </h3>
-        <ul>
-            <li>Name: ${req.body.name}</li>
-            <li>Email Id: ${req.body.email}</li>
-            <li>Subject: ${req.body.subject}</li>
-        </ul>
-        <h3>Message: </h3>
         <p>${req.body.message}</p>
         `
     }
@@ -75,6 +67,8 @@ router.post('/sendEmail',(req,res)=>{
     })
 });
 
+
+//Email Stats API
 router.get('/getEmailStats', async (req,res)=>{
 
    try{
@@ -96,4 +90,6 @@ router.get('/getEmailStats', async (req,res)=>{
    }
 })
 
+
+// Export File
 module.exports= router;
